@@ -1,0 +1,65 @@
+body {
+  background: linear-gradient(-45deg, #f33823, #ff5d9b, #22b6eb, #6ae37e);
+  background-size: 400% 400%;
+  animation: gradient 20s ease infinite;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Nav */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navitem {
+  text-align: end;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+
+.navitem h3 {
+  margin-left: 10px;
+}
+
+/* Buttons and Inputs */
+.settingbtn, input {
+  padding: 10px;
+  font-size: large;
+  text-align: center;
+}
+
+input {
+  width: 8%;
+}
+
+/* Timer Update */
+.timerupdate {
+  margin: 50px 0;
+}
+
+/* Information */
+.info {
+  font-size: 15px;
+}
+
+/* Modal */
+.modal.show {
+  animation: fadeIn 0.3s;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@media (max-width: 500px) {
+  .navitem-text {
+    display: none;
+  }
+}
