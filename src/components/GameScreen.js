@@ -16,7 +16,8 @@ function Game({newCountdown, resetGame}) {
     const { countdown, updateCountdown } = useCountdown();
 
     const [level,setLevel] = useState(1);
-    var levels = [[''],[3,3],[3,4],[4,4],[4,5],[4,6],[5,5],[5,6],[5,7],[6,6],[7,7]];
+    // var levels = [[''],[3,3],[3,4],[4,4],[4,5],[4,6],[5,5],[5,6],[5,7],[6,6],[7,7]];
+    var levels = [[''],[3,3],[3,4]];
     var gridSize = levels[level][0] ** 2;
 
     const [greensq, setGreenSq] = useState([]);
@@ -178,6 +179,11 @@ function Game({newCountdown, resetGame}) {
         setIsExploding(false);
     };
 
+    const returnHome = () => {
+        navigate("/");
+        resetNewGame();
+    }
+
     const onAnimationEnd = () => {
         setAnimateContainer(false); // Reset animation state after it completes
     };
@@ -221,7 +227,7 @@ function Game({newCountdown, resetGame}) {
                                 {score === levels[level][1] && level !== levels.length-1 && (
                                     <button onClick={levelUp}>Level Up</button>
                                 )}
-                                {gameCompleted && <button onClick={() => navigate("/")}>Close</button>}
+                                {gameCompleted && <button onClick={returnHome}>Close</button>}
                                 {gameCompleted && (<button onClick={resetNewGame}>Play Again</button>
 )}
                             </div>
