@@ -16,8 +16,7 @@ function Game({newCountdown, resetGame}) {
     const { countdown, updateCountdown } = useCountdown();
 
     const [level,setLevel] = useState(1);
-    // var levels = [[''],[3,3],[3,4],[4,4],[4,5],[4,6],[5,5],[5,6],[5,7],[6,6],[7,7]];
-    var levels = [[''],[3,3],[3,4]];
+    var levels = [[''],[3,3],[3,4],[4,4],[4,5],[4,6],[5,5],[5,6],[5,7],[6,6],[7,7]];
     var gridSize = levels[level][0] ** 2;
 
     const [greensq, setGreenSq] = useState([]);
