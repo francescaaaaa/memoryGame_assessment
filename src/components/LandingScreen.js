@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
-import './landingpage.css'
+import './landingscreen.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faBrain} from '@fortawesome/free-solid-svg-icons'
 

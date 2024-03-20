@@ -6,7 +6,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { CountdownProvider } from './components/CountdownContext';
 import bgMusic from './components/audios-img/bgmusic.mp3';
 import Game from './components/GameScreen';
-import LandingPage from './components/LandingPage';
+import LandingPage from './components/LandingScreen';
 
 function App() {
 
