@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './game.css';
-import generateGreenSq from './generaterandomsq';
+import generateGreenSq from './GenerateRandomSq';
 import { faStopwatch } from '@fortawesome/free-solid-svg-icons';
 import { faFaceFrown, faFaceSmile } from '@fortawesome/free-regular-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -16,7 +16,8 @@ function Game({newCountdown, resetGame}) {
     const { countdown, updateCountdown } = useCountdown();
 
     const [level,setLevel] = useState(1);
-    var levels = [[''],[3,3],[3,4],[4,4],[4,5],[4,6],[5,5],[5,6],[5,7],[6,6],[7,7]];
+    // var levels = [[''],[3,3],[3,4],[4,4],[4,5],[4,6],[5,5],[5,6],[5,7],[6,6],[7,7]];
+    var levels = [[''],[3,3],[3,4]];
     var gridSize = levels[level][0] ** 2;
 
     const [greensq, setGreenSq] = useState([]);
@@ -37,6 +38,7 @@ function Game({newCountdown, resetGame}) {
     const [play] = useSound(audio);
     const [animateContainer, setAnimateContainer] = useState(true);
     const [gameCompleted, setGameCompleted] = useState(false);
+    const [clickedSq, setClickedSq] = useState([]);
 
     useEffect(() => {
         updateCountdown(newCountdown); // Update countdown when newCountdown prop changes
@@ -92,11 +94,15 @@ function Game({newCountdown, resetGame}) {
         }
     }, [clicks, greensq, correctsq, level]);
 
+    // check if last level and game over
     useEffect(() => {
-        if (level === levels[level].length-1) {
+        if (level === levels.length-1 && score === levels[level][1]) {
             setIsExploding(true);
+            setGameCompleted(true);
+        } else {
+            setIsExploding(false);
         }
-    }, [isExploding]);
+    });
 
     // stop the timer when the modal is shown
     useEffect(() => {
@@ -109,7 +115,8 @@ function Game({newCountdown, resetGame}) {
     const handleGridItemClick = (index) => {
         const audioContext = new AudioContext();
         audioContext.resume();
-        if (!chosensq.includes(index)) { // checking if player clicked sq before
+        if (!clickedSq.includes(index)) { // checking if player clicked sq before
+            setClickedSq(clickedSq => [...clickedSq, index]);
             if (correctsq.includes(index)) { // checking if player clicked the correct sq
                 setChosenSq(chosensq => [...chosensq, index]);
                 setFeedback({...feedback, [index]:'correct'});
@@ -141,6 +148,7 @@ function Game({newCountdown, resetGame}) {
         setFeedback({});
         setTimeTaken(0);
         setAnimateContainer(true);
+        setClickedSq([]);
     };
 
     const retryLevel = () => {
@@ -204,18 +212,18 @@ function Game({newCountdown, resetGame}) {
                 {showModal && (
                     <div className="modal">
                         <div className="modal-content">
-                            <h2>{level === levels.length-1 ? 'Congratulations! You have successfully completed all levels' : score === levels[level][1] ? 'Level Passed!' : 'Level Failed'}</h2>
+                            <h2>{gameCompleted ? 'Congratulations! You have successfully completed all levels' : score === levels[level][1] ? 'Level Passed!' : 'Level Failed'}</h2>
                             {isExploding && <ConfettiExplosion force={0.9} duration={5000} particleCount={250} width={2000}/>}
-                            {level !== levels.length-1 && <p>Your score: {score}/{levels[level][1]} {score !== levels[level][1] ? <FontAwesomeIcon icon={faFaceFrown} /> : <FontAwesomeIcon icon={faFaceSmile} />}</p>}
+                            {!gameCompleted && <p>Your score: {score}/{levels[level][1]} {score !== levels[level][1] ? <FontAwesomeIcon icon={faFaceFrown} /> : <FontAwesomeIcon icon={faFaceSmile} />}</p>}
                             {attempts > 1 && score === levels[level][1] && <p style={{fontSize:'small'}}>No. of Attemps: {attempts}</p>}
                             <p style={{fontSize:'small'}}>Time Taken: {timeTaken} second</p>
                             <div className="modal-buttons">
-                                {level !== levels.length-1 && score !== levels[level][1] && <button onClick={retryLevel}>Retry</button>}
+                                {score !== levels[level][1] && <button onClick={retryLevel}>Retry</button>}
                                 {score === levels[level][1] && level !== levels.length-1 && (
                                     <button onClick={levelUp}>Level Up</button>
                                 )}
-                                {level === levels.length-1 && <button onClick={() => navigate("/")}>Close</button>}
-                                {level === levels.length-1 && (<button onClick={resetNewGame}>Play Again</button>
+                                {gameCompleted && <button onClick={() => navigate("/")}>Close</button>}
+                                {gameCompleted && (<button onClick={resetNewGame}>Play Again</button>
 )}
                             </div>
                         </div>
