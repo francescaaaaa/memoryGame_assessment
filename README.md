@@ -1,6 +1,8 @@
 # Memory Game
 
-The main aim of the game is for the player to successfully complete every round by identifying the green cards.
+The main aim of the game is for the player to successfully complete every round by identifying the green cards. 
+
+Click here to play now https://memorygame4u.netlify.app/
 
 ## Technology Used
 
