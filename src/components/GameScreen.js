@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './game.css';
-import generateGreenSq from './GenerateRandomsq';
+import generateGreenSq from './generaterandomsq';
 import { faStopwatch } from '@fortawesome/free-solid-svg-icons';
 import { faFaceFrown, faFaceSmile } from '@fortawesome/free-regular-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
